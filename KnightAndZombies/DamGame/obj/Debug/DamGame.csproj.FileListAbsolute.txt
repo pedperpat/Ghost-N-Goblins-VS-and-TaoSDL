@@ -1,0 +1,21 @@
+c:\users\asus\documents\visual studio 2015\Projects\DamGame\DamGame\bin\Debug\DamGame.exe.config
+c:\users\asus\documents\visual studio 2015\Projects\DamGame\DamGame\bin\Debug\DamGame.exe
+c:\users\asus\documents\visual studio 2015\Projects\DamGame\DamGame\bin\Debug\DamGame.pdb
+c:\users\asus\documents\visual studio 2015\Projects\DamGame\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache
+c:\users\asus\documents\visual studio 2015\Projects\DamGame\DamGame\obj\Debug\DamGame.exe
+c:\users\asus\documents\visual studio 2015\Projects\DamGame\DamGame\obj\Debug\DamGame.pdb
+C:\Users\david_000\Desktop\DAM\Programacion\PrincessOfSanvi2_01_skeleton\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\david_000\Desktop\DAM\Programacion\PrincessOfSanvi2_01_skeleton\DamGame\obj\Debug\DamGame.exe
+C:\Users\david_000\Desktop\DAM\Programacion\PrincessOfSanvi2_01_skeleton\DamGame\obj\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Desktop\PrincessOfSanvi2_01_skeleton\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\Pedro Antonio\Desktop\PrincessOfSanvi2_01_skeleton\DamGame\obj\Debug\DamGame.exe
+C:\Users\Pedro Antonio\Desktop\PrincessOfSanvi2_01_skeleton\DamGame\obj\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Desktop\PrincessOfSanvi2_01_skeleton\DamGame\bin\Debug\DamGame.exe
+C:\Users\Pedro Antonio\Desktop\PrincessOfSanvi2_01_skeleton\DamGame\bin\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Desktop\PrincessOfSanvi2_01_skeleton\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache
+C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\obj\Debug\DamGame.exe
+C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\obj\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\bin\Debug\DamGame.exe
+C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\bin\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache
