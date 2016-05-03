@@ -19,3 +19,9 @@ C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\obj\Debug\DamGame.pdb
 C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\bin\Debug\DamGame.exe
 C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\bin\Debug\DamGame.pdb
 C:\Users\Pedro Antonio\Desktop\KnightAndZombies\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache
+C:\Users\Pedro Antonio\Documents\Ghost-N-Goblins-VS-and-TaoSDL\KnightAndZombies\DamGame\bin\Debug\DamGame.exe.config
+C:\Users\Pedro Antonio\Documents\Ghost-N-Goblins-VS-and-TaoSDL\KnightAndZombies\DamGame\obj\Debug\DamGame.exe
+C:\Users\Pedro Antonio\Documents\Ghost-N-Goblins-VS-and-TaoSDL\KnightAndZombies\DamGame\obj\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Documents\Ghost-N-Goblins-VS-and-TaoSDL\KnightAndZombies\DamGame\bin\Debug\DamGame.exe
+C:\Users\Pedro Antonio\Documents\Ghost-N-Goblins-VS-and-TaoSDL\KnightAndZombies\DamGame\bin\Debug\DamGame.pdb
+C:\Users\Pedro Antonio\Documents\Ghost-N-Goblins-VS-and-TaoSDL\KnightAndZombies\DamGame\obj\Debug\DamGame.csprojResolveAssemblyReference.cache

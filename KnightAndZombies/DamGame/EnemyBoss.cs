@@ -4,6 +4,7 @@ namespace DamGame
 {
     class EnemyBoss : Enemy
     {
+        Player p1;
         public EnemyBoss(int newX, int newY) : base(newX, newY)
         {
             LoadImage("data/bossLvl1.png");
@@ -16,19 +17,19 @@ namespace DamGame
             height = 112;
             stepsTillNextFrame = 6;
         }
-       /* public override void Move()//Edited with two if statements
-        {
-            if ((x > 6400 - width) || (x < 2000))
-                xSpeed = -xSpeed;
-            x = (short)(x + xSpeed);
+        /*public override void Move()//Edited with two if statements
+         {
+             if ((x > 6400 - width) || (x < 2000))
+                 xSpeed = -xSpeed;
+             x = (short)(x + xSpeed);
 
-            if (xSpeed < 0)
-                ChangeDirection(LEFT);
-            else
-                ChangeDirection(RIGHT);
+             if (xSpeed < 0)
+                 ChangeDirection(LEFT);
+             else
+                 ChangeDirection(RIGHT);
 
-            NextFrame();
-        }
-        */
+             NextFrame();
+         }
+         */
     }
 }

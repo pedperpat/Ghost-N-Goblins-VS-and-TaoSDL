@@ -86,9 +86,19 @@ class Sprite
         return x;
     }
 
+    public void SetX(int x)
+    {
+            this.x = x;
+    }
+
     public int GetY()
     {
         return y;
+    }
+
+    public void SetY(int y)
+    {
+          this.y = y;
     }
 
     public int GetWidth()
@@ -125,6 +135,13 @@ class Sprite
             startX = x;
             startY = y;
         }
+    }
+    
+    // Moves the enemies to player, chasing players.
+    public void MoveToPlayer(int xEnemy, int xPlayer)
+    {
+        if (xPlayer < xEnemy)
+            xEnemy--;
     }
 
     public void SetSpeed(int newXSpeed, int newYSpeed)

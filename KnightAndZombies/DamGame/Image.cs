@@ -20,6 +20,12 @@ public class Image
         Load(fileName);
     }
 
+    public Image(IntPtr ptr)
+    {
+        internalPointer = ptr;
+    }
+ 
+
     public void Load(string fileName)
     {
         internalPointer = SdlImage.IMG_Load(fileName);

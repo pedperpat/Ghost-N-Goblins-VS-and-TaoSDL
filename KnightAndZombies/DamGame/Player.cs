@@ -24,6 +24,8 @@
                 new string[] { "data/jumpLeft.png","data/jumpLeft2.png" });
             LoadSequence(UPRIGHT,
                 new string[] { "data/jumpRight.png", "data/jumpRight2.png" });
+            LoadSequence(UP,
+               new string[] { "data/Ladder1.png", "data/Ladder2.png" });
             ChangeDirection(LEFT);
 
             x = 50;
@@ -66,9 +68,16 @@
 
         public void MoveUp()
         {
-            // The player will not move up freely any longer, but jump
             y -= ySpeed;
             Jump();
+            // Ladder test
+            //if (x > 50 && x < 100)
+            //    ChangeDirection(UP);
+            //else
+            //{
+            //    y -= ySpeed;
+            //    Jump();
+            //}
         }
 
         public void MoveDown()
@@ -94,7 +103,7 @@
         {
             Jump();
             jumpXspeed = xSpeed;
-            //ChangeDirection(UPRIGHT);
+            ChangeDirection(UPRIGHT);
         }
 
 

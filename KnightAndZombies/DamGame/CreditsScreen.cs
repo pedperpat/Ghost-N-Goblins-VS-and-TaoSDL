@@ -14,15 +14,23 @@
         {
             finished = false;
 
-            Image introBackground = new Image("data/credits.png");
+            Image introBackground = new Image("data/credits.jpg");
             Hardware.ClearScreen();
-            Hardware.DrawHiddenImage(introBackground, 0, 0);
-            Hardware.WriteHiddenText("Spriter - Pedro Antonio Pérez Paterna and some google sources",
-                360, 720,
+            Hardware.DrawHiddenImage(introBackground, 50, 50);
+            Hardware.WriteHiddenText("Spriter - Pedro Antonio Pérez Paterna",
+                260, 280,
                 0xEE, 0xEE, 0xEE,
                 font18);
-            Hardware.WriteHiddenText("Programmed by - Pedro Antonio Pérez Paterna and Nacho's skeleton",
-                265, 740,
+            Hardware.WriteHiddenText("and some google sources",
+                350, 300,
+                0xEE, 0xEE, 0xEE,
+                font18);
+            Hardware.WriteHiddenText("Programmed by - Pedro Antonio Pérez Paterna",
+                270, 350,
+                0xB0, 0xB0, 0xB0,
+                font18);
+            Hardware.WriteHiddenText("using Nacho's skeleton",
+                350, 370,
                 0xB0, 0xB0, 0xB0,
                 font18);
             Hardware.ShowHiddenScreen();

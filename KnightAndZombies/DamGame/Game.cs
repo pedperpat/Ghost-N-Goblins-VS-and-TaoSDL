@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; //For queue of shoots
 
 namespace DamGame
 {
     class Game
     {
+        //private Queue<Shoot> shoot;
         private Font font18;
         private Player player;
         private Enemy[] enemies;
@@ -29,6 +30,11 @@ namespace DamGame
         private int score = 0;
         private int moved = 0;
         private int x;
+        private int level;
+        private int bossLives = 5;
+        private int demonsLives = 2;
+        private int redFlysLives = 3;
+        private int ogreLives = 2;
         private PickObject[] objects;
 
         public Game()
@@ -36,6 +42,7 @@ namespace DamGame
             font18 = new Font("data/Joystix.ttf", 18);
             player = new Player(this);
 
+            level = 1;
 
             Random rnd = new Random();
             numEnemies = 2;
@@ -55,6 +62,7 @@ namespace DamGame
             bosses = new EnemyBoss[numBosses];
             redFlys = new EnemyRedFly[numRedFlys];
             shoot = new Shoot();
+            //shoot = new Queue<Shoot>();
             
             // Set speed and positions to each enemy
             for (int i = 0; i < numEnemies; i++)
@@ -119,11 +127,12 @@ namespace DamGame
                 (short)(40+player.GetX()), 10,
                 0xCC, 0xCC, 0xCC,
                 font18);
-
+            
            Hardware.WriteHiddenText("Lifes: " + lifeCount,
                 (short)(400+player.GetX()), 10,
                 0xFF, 0x00, 0x00,
                 font18);
+
             player.DrawOnHiddenScreen();
             shoot.DrawOnHiddenScreen();
             for (int i = 0; i < numEnemies; i++)
@@ -180,13 +189,24 @@ namespace DamGame
             {
                 if (player.GetCurrentDirection() == Sprite.RIGHT)
                     shoot.Appear(player.GetX() +20, player.GetY() + 20, 20);
+                //shoot.Enqueue(player.GetX() + 20, player.GetY() + 20, 20);
                 else
                     shoot.Appear(player.GetX() - 60, player.GetY() + 20, -20);
+                //shoot.Enqueue(player.GetX() + 20, player.GetY() + 20, 20);
                 //player.LoadImage("data/ArthurTrowRight.png");
             }
 
             if (Hardware.KeyPressed(Hardware.KEY_ESC))
                 finished = true;
+
+            // Hacks, move directly to the boss
+            //if (Hardware.KeyPressed(Hardware.KEY_H))
+            //{
+            //    player.SetX(6300);
+            //    player.SetY(400);
+            //    Hardware.ScrollTo(6300,400);
+            //}
+                
         }
 
 
@@ -213,6 +233,13 @@ namespace DamGame
         // Check collisions and apply game logic
         public void CheckCollisions()
         {
+            if (player.GetX() + player.GetWidth() >= currentLevel.GetMaxX() &&
+                    level < 3)
+            {
+                level++;
+                player.SetX(currentLevel.GetMinX() + 5);
+                currentLevel.SetLevel(level);
+            }
             for (int i = 0; i < numEnemies; i++)
             {
                 if (enemies[i].CollisionsWith(player))
@@ -231,23 +258,24 @@ namespace DamGame
                 }
             }
 
-                for (int i = 0; i < numDemons; i++)
+            for (int i = 0; i < numDemons; i++)
+            {
+                if (demons[i].CollisionsWith(player))
                 {
-                    if (demons[i].CollisionsWith(player))
-                    {
-                        lifeCount--;
-                        player.Restart();
-                        Hardware.ResetScroll();
-                        if (lifeCount < 0)
-                            finished = true;
-                    }
-                    if (shoot.CollisionsWith(demons[i]))
-                    {
-                        demons[i].Hide();
-                        shoot.Hide();
-                        score += 700;
-                    }
+                    lifeCount--;
+                    player.Restart();
+                    Hardware.ResetScroll();
+                    if (lifeCount < 0)
+                        finished = true;
                 }
+                if (shoot.CollisionsWith(demons[i]))
+                {
+                    shoot.Hide();
+                    score += 700;
+                    if(demonsLives == 0)
+                        demons[i].Hide();
+                }
+            }
 
             for (int i = 0; i < numOgres; i++)
             {
@@ -261,9 +289,14 @@ namespace DamGame
                 }
                 if (shoot.CollisionsWith(ogres[i]))
                 {
-                    ogres[i].Hide();
+                    ogreLives--;
                     shoot.Hide();
                     score += 400;
+                    if(ogreLives == 0)
+                    {
+                        ogres[i].Hide();
+                        ogreLives = 2;
+                    }
                 }
             }
 
@@ -295,13 +328,13 @@ namespace DamGame
                     if (lifeCount < 0)
                         finished = true;
                 }
-                    if (shoot.CollisionsWith(birds[i]))
-                    {
-                        birds[i].Hide();
-                        shoot.Hide();
-                        score += 200;
-                    }
+                if (shoot.CollisionsWith(birds[i]))
+                {
+                    birds[i].Hide();
+                    shoot.Hide();
+                    score += 200;
                 }
+            }
 
             for (int i = 0; i < numRedFlys; i++)
             {
@@ -313,13 +346,16 @@ namespace DamGame
                     if (lifeCount < 0)
                         finished = true;
                 }
-                    if (shoot.CollisionsWith(redFlys[i]))
-                    {
+                if (shoot.CollisionsWith(redFlys[i]))
+                {
+                    redFlysLives--;
+                    shoot.Hide();
+                    score += 500;
+                    if(redFlysLives == 0)
                         redFlys[i].Hide();
-                        shoot.Hide();
-                        score += 500;
-                    }
+
                 }
+            }
 
             for (int i = 0; i < numBosses; i++)
             {
@@ -331,13 +367,16 @@ namespace DamGame
                     if (lifeCount < 0)
                         finished = true;
                 }
-                    if (shoot.CollisionsWith(bosses[i]))
-                    {
+                if (shoot.CollisionsWith(bosses[i]))
+                {
+                    bossLives--;
+                    shoot.Hide();
+                    score += 1000;
+                    if(bossLives == 0)
                         bosses[i].Hide();
-                        shoot.Hide();
-                        score += 1000;
-                    }
+
                 }
+            }
 
             for (int i = 0; i < numObjects; i++)
                 if (objects[i].CollisionsWith(player))
@@ -361,22 +400,27 @@ namespace DamGame
                 DrawElements();
                 CheckKeys();
                 MoveElements();
-                //MoveScroll();
+                //MoveScroll(); //Auto scrolling the map without playing the game.
                 CheckCollisions();
                 PauseTillNextFrame();
             }
         }
         
-        //public void MoveScroll()
-        //{
-        //        int moved = player.GetX() - x;
-        //        Hardware.ScrollHorizontally((short)-moved);
-        //        x = player.GetX();
-        //}
+        public void MoveScroll()
+        {
+                int moved = player.GetX() - x / 2;
+                Hardware.ScrollHorizontally((short)-moved);
+                x = player.GetX();
+        }
 
         public bool IsValidMove(int xMin, int yMin, int xMax, int yMax)
         {
             return currentLevel.IsValidMove(xMin, yMin, xMax, yMax);
+        }
+
+        public Level GetLevel()
+        {
+            return currentLevel;
         }
     }
 }

@@ -77,7 +77,15 @@ public class Hardware
         drawHiddenImage(image.GetPointer(), x + startX, y + startY);
     }
 
-    public static void WriteHiddenText(string txt,
+    public static Image CreateImageFromText(string txt, byte r, byte g, byte b, Font f)
+    {
+         Sdl.SDL_Color color = new Sdl.SDL_Color(r, g, b);
+         IntPtr textoComoImagen = SdlTtf.TTF_RenderText_Solid(
+            f.GetPointer(), txt, color);
+ 
+         return new Image(textoComoImagen);
+    }
+public static void WriteHiddenText(string txt,
         short x, short y, byte r, byte g, byte b, Font f)
     {
         Sdl.SDL_Color color = new Sdl.SDL_Color(r, g, b);
@@ -94,6 +102,8 @@ public class Hardware
         Sdl.SDL_BlitSurface(textoComoImagen, ref origen,
             hiddenScreen, ref dest);
     }
+
+    //Sdl.SDL_FreeSurface(textoComoImagen);
 
     public static void ShowHiddenScreen()
     {
@@ -216,5 +226,8 @@ public class Hardware
     public static int KEY_LEFT = Sdl.SDLK_LEFT;
     public static int KEY_RETURN = Sdl.SDLK_RETURN;
 
-
+    //public int MousePosition(out int x, out int y)
+    //{
+      //  return Sdl.SDL_GetMouseState(x, y);
+    //}
 } /* End of class SdlHardware */
