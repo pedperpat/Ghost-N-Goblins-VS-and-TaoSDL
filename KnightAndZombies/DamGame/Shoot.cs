@@ -5,6 +5,7 @@ namespace DamGame
     class Shoot : Sprite
     {
         int shootDistance;
+
         public Shoot()
         {
             width = 64;

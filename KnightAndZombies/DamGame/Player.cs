@@ -26,6 +26,10 @@
                 new string[] { "data/jumpRight.png", "data/jumpRight2.png" });
             LoadSequence(UP,
                new string[] { "data/Ladder1.png", "data/Ladder2.png" });
+            //LoadSequence(SHOOTLEFT,
+            //   new string[] { "data\\SpearRight.png" });
+            //LoadSequence(SHOOTRIGHT,
+            //   new string[] { "data\\SpearRight.png" });
             ChangeDirection(LEFT);
 
             x = 50;
@@ -161,6 +165,38 @@
                     jumping = false;
                     jumpFrame = 0;
                 }
+            }
+        }
+
+        public void CheckSituation(bool platform, bool stairs, bool endStairs)
+        {
+            if ((!platform) && (!stairs) && (!endStairs))
+            {
+                ySpeed = 4;
+                y += ySpeed;
+            }
+
+            if ((platform) && !((stairs) && (endStairs)))
+            {
+                ySpeed = 0;
+                y = y;
+            }
+
+            if ((stairs) || (endStairs))
+            {
+                if (ySpeed != 10)
+                {
+                    ySpeed--;
+                    if (ySpeed != 9)
+                    {
+                        y = y;
+                    }
+                }
+            }
+
+            if (y + height > 768)
+            {
+                y = 768 - height;
             }
         }
     }

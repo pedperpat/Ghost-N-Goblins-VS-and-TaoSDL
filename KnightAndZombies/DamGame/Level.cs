@@ -1,45 +1,26 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace DamGame
 {
     class Level
     {
-        //StreamReader level =
-        //    File.OpenText("levels.gnb");
-
         byte tileWidth, tileHeight;
         byte levelWidth, levelHeight;
         byte leftMargin, topMargin;
-        string[][] levelDescription;
-        int currentLevel;
-        int maxX, minX;
+        string[] levelDescription;
 
         Image g1, g2, g3,
-            corner,cornerRight,mountain,
-            ladder,plantLeft,plantRight,
-            platformLeft,platformRight,water,
+            corner, cornerRight, mountain,
+            ladder, plantLeft, plantRight,
+            platformLeft, platformRight, water,
             edgeRight1, edgeRight2, edgeLeft1, edgeLeft2,
             slimTree, treeLeafRight, treeLeafLeft,
-            bigTreeRight,bigTreeLeft,treeBot,
-            treeTop,candle,endScreen;
+            bigTreeRight, bigTreeLeft, treeBot,
+            treeTop, candle, endScreen;
 
         public Level()
         {
-            // Load map part
-            //string levelLoaded = "";
-            //string line = "";
-            //do
-            //{
-            //    line = level.ReadLine();
-            //    if ((line.StartsWith("\"")) && (line.EndsWith("\"")))
-            //        levelLoaded = line;
-            //}
-            //while (line != null);
-            //level.Close();
-            //string[] levels;
-            //levels = levelLoaded.Split(':');
-
-            levelDescription = new string[3][];
             tileWidth = 64;
             tileHeight = 64;
             levelWidth = 110;
@@ -47,69 +28,61 @@ namespace DamGame
             leftMargin = 0;
             topMargin = 0;
 
-            minX = leftMargin;
-            maxX = tileWidth * levelWidth + leftMargin;
-            currentLevel = 0;
-
-            //To use loaded levels from file
-            //levelDescription[0] = levels[0];
-            //levelDescription[1] = levelLoaded[1];
-            //levelDescription[2] = levelLoaded[2];
-
-            // To use specified levels that are not stored at a external file.
-            levelDescription[0] = new string[12]
+            if (File.Exists("levels.gnb"))
+            try
             {
-                                                                                         
-                "                                                                                                              ",
-                "                                                                                                              ",
-                "                         L                                             #                                      ",
-                "       #       ¬¬        |      #              LL                                                             ",
-                "           66666666666   B                 L   +*==                                                           ",
-                "       47222222222222227228          #   --|   +*                               #               L      #     #",
-                "      4575555555555555575558               |=  +*=       #           #                 #        |=            ",
-                "     455755555555555555755558             -|  -+*               ¬¬¬      4228              ¬¬  -|        4228 ",
-                "3   45557555555555555557555558             B   BB           6666666666  455558    66666666666   B       455558",
-                "222222222222222222222222222222222ZX  %/2222222222222  PT  2222222222222222222222222222222222222222222222222222",
-                "111111111111111111111111111111111wwwwww1111111111111wwwwww1111111111111111111111111111111111111111111111111111",
-                "111111111111111111111111111111111wwwwww1111111111111wwwwww1111111111111111111111111111111111111111111111111111",
+                StreamReader levelLoaded = File.OpenText("levels.gnb");
+                string line;
+                do
+                {
+                    //int numLevel = 1;
+                    line = levelLoaded.ReadLine();
+                    if ((line != null) && (line.StartsWith("\"") && (line.EndsWith("\""))))
+                    {
+                            line = line.Replace("\"","");
+                            string[] parts = line.Split(':');
+
+                            levelDescription[0] = parts[0];
+                            levelDescription[1] = parts[1];
+                            levelDescription[2] = parts[2];
+                            //levelDescription[numLevel] = parts[0];
+                            //numLevel++;
+                        }
+                    }
+                while (line != null);
+                levelLoaded.Close();
+            }
+            catch (PathTooLongException)
+            {
+                Console.WriteLine("Path too long.");
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("Input/Ouput error: {0}", ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unexpected error: {0}", ex.Message);
+            }
+
+            //levelDescription = new string[12];
             
-            };
+            //{
 
-            levelDescription[1] = new string[12]
-            {
+            //    "                                                                                                              ",
+            //    "                                                                                                              ",
+            //    "                         L                                             #                                      ",
+            //    "       #       ¬¬        |      #              LL                                                             ",
+            //    "           66666666666   B                 L   +*==                                                           ",
+            //    "       47222222222222227228          #   --|   +*                               #               L      #     #",
+            //    "      4575555555555555575558               |=  +*=       #           #                 #        |=            ",
+            //    "     455755555555555555755558             -|  -+*               ¬¬¬      4228              ¬¬  -|        4228 ",
+            //    "3   45557555555555555557555558             B   BB           6666666666  455558    66666666666   B       455558",
+            //    "222222222222222222222222222222222ZX  %/2222222222222  PT  2222222222222222222222222222222222222222222222222222",
+            //    "111111111111111111111111111111111wwwwww1111111111111wwwwww1111111111111111111111111111111111111111111111111111",
+            //    "111111111111111111111111111111111wwwwww1111111111111wwwwww1111111111111111111111111111111111111111111111111111",
 
-                "                                                                                                              ",
-                "                                                                                                              ",
-                "                         L                                             #                                      ",
-                "                         |      #              LL                                                             ",
-                "                         B                 L   +*==                                                           ",
-                "       47222222222222227228          #   --|   +*                               #               L             ",
-                "      4575555555555555575558               |=  +*=       #           #                 #        |=            ",
-                "     455755555555555555755558             -|  -+*               ¬¬¬      4228              ¬¬  -|        4228 ",
-                "3   45557555555555555557555558             B   BB           6  6666 66  455558    666   66666   B       455558",
-                "222222222222222222222222222222222ZX  %/2222222222222  PT  22222222222222222222   22222222222222222222222222222",
-                "111111111111111111111111111111111wwwwww1111111111111wwwwww11111111111111111111www11111111111111111111111111111",
-                "111111111111111111111111111111111wwwwww1111111111111wwwwww11111111111111111111www11111111111111111111111111111",
-
-            };
-
-            levelDescription[2] = new string[12]
-            {
-
-                "                                                                                                              ",
-                "                                                                                                              ",
-                "                                                                                                              ",
-                "       #       ¬¬                                                                                             ",
-                "           66666666666                                                                                        ",
-                "       47222222222222227228                                                                                   ",
-                "      4575555555555555575558                                                                                  ",
-                "     455755555555555555755558                                   ¬¬¬      4228              ¬¬            4228 ",
-                "3   45557555555555555557555558             B   BB           6666666666  455558    66666666666           455558",
-                "222222222222222222222222222222222ZX  %/2222222222222  PT  2222222222222222222222222222222222222222222222222222",
-                "111111111111111111111111111111111wwwwwwwwwwwwwwwwwwwwwwwww1111111111111111111111111111111111111111111111111111",
-                "111111111111111111111111111111111wwwwwwwwwwwwwwwwwwwwwwwww1111111111111111111111111111111111111111111111111111",
-
-            };
+            //};
 
             g1 = new Image("data\\tierraBajo.png");
             g2 = new Image("data\\tierraArribaverde.png");
@@ -128,30 +101,14 @@ namespace DamGame
             treeTop = new Image("data\\treeTop.png");
             mountain = new Image("data\\tierraBajo.png");
             bigTreeLeft = new Image("data\\bigTreeLeft.png");
-            bigTreeRight= new Image("data\\bigTreeRight.png");
+            bigTreeRight = new Image("data\\bigTreeRight.png");
             ladder = new Image("data\\ladderTile.png");
             plantLeft = new Image("data\\plantLeft.png");
-            treeLeafRight= new Image("data\\treeLeftLeaf.png");
+            treeLeafRight = new Image("data\\treeLeftLeaf.png");
             treeLeafLeft = new Image("data\\treeRightLeaf.png");
             slimTree = new Image("data\\treeSlim.png");
             treeBot = new Image("data\\treeBottom.png");
             endScreen = new Image("data\\welcomeScreen.png");
-
-        }
-
-        public void SetLevel(int level)
-        {
-            currentLevel = level;
-        }
-  
-        public int GetMaxX()
-        {
-            return maxX;
-        }
-  
-        public int GetMinX()
-        {
-            return minX;
         }
 
         public void DrawOnHiddenScreen()
@@ -161,7 +118,7 @@ namespace DamGame
                 {
                     int xPos = leftMargin + col * tileWidth;
                     int yPos = topMargin + row * tileHeight;
-                    switch (levelDescription[currentLevel][row][col])
+                    switch (levelDescription[row][col])
                     {
                         case '1': Hardware.DrawHiddenImage(g1, xPos, yPos); break;
                         case '2': Hardware.DrawHiddenImage(g2, xPos, yPos); break;
@@ -196,7 +153,7 @@ namespace DamGame
             for (int row = 0; row < levelHeight; row++)
                 for (int col = 0; col < levelWidth; col++)
                 {
-                    char tileType = levelDescription[currentLevel][row][col];
+                    char tileType = levelDescription[row][col];
 
                     if ((tileType == '4')
                             || (tileType == '5') || (tileType == ' ')
@@ -216,7 +173,7 @@ namespace DamGame
 
                     if (Sprite.CheckCollisions(
                             xMin, yMin, xMax, yMax,
-                            xPos, yPos, xLimit, yLimit)) 
+                            xPos, yPos, xLimit, yLimit))
                         return false;
                 }
             return true;

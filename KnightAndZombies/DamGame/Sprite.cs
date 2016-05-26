@@ -34,6 +34,8 @@ class Sprite
     public const byte APPEARING = 8;
     public const byte DISAPPEARING = 9;
     public const byte JUMPING = 9;
+    //public const byte SHOOTLEFT = 10;
+    //public const byte SHOOTRIGHT = 11;
 
     public Sprite()
     {
@@ -189,7 +191,15 @@ class Sprite
         }
 
     }
-        
+    //public void Shoot()
+    //{
+    //    if (currentDirection == LEFT)
+    //        ChangeDirection(SHOOTLEFT);
+    //    else if (currentDirection == RIGHT)
+    //        ChangeDirection(SHOOTRIGHT);
+    //    NextFrame();
+    //}
+
     public void ChangeDirection(byte newDirection)
     {
         if (!containsSequence) return;

@@ -1,11 +1,13 @@
-﻿using System;
+﻿// 06/05/2016 Fixed bug of demons score.
+
+using System;
 using System.Collections.Generic; //For queue of shoots
 
 namespace DamGame
 {
     class Game
     {
-        //private Queue<Shoot> shoot;
+        //private List<Shoot>shoot;
         private Font font18;
         private Player player;
         private Enemy[] enemies;
@@ -62,7 +64,7 @@ namespace DamGame
             bosses = new EnemyBoss[numBosses];
             redFlys = new EnemyRedFly[numRedFlys];
             shoot = new Shoot();
-            //shoot = new Queue<Shoot>();
+            //shoot = new List<Shoot>();
             
             // Set speed and positions to each enemy
             for (int i = 0; i < numEnemies; i++)
@@ -134,7 +136,13 @@ namespace DamGame
                 font18);
 
             player.DrawOnHiddenScreen();
-            shoot.DrawOnHiddenScreen();
+            shoot.DrawOnHiddenScreen(); // Only for standard one by one shot method.
+
+            //for (int i = 0; i < shoot.Count; i++) // Method for various shoots using lists.
+            //{
+            //    shoot[i].DrawOnHiddenScreen();
+            //}
+
             for (int i = 0; i < numEnemies; i++)
                 enemies[i].DrawOnHiddenScreen();
 
@@ -196,17 +204,24 @@ namespace DamGame
                 //player.LoadImage("data/ArthurTrowRight.png");
             }
 
+            // Shoot each time key F is pressed
+            //if (Hardware.KeyPressed(Hardware.KEY_F))
+            //{
+            //     // Make the spear appears
+            //        shoot.Add(new Shoot());
+            //        shoot[shoot.Count - 1].Appear(player.GetX(),player.GetY(),player.GetSpeedX());
+            //}
+
             if (Hardware.KeyPressed(Hardware.KEY_ESC))
                 finished = true;
 
             // Hacks, move directly to the boss
             //if (Hardware.KeyPressed(Hardware.KEY_H))
             //{
-            //    player.SetX(6300);
-            //    player.SetY(400);
-            //    Hardware.ScrollTo(6300,400);
-            //}
-                
+            //player.SetX(6300);
+            //player.SetY(400);
+            //Hardware.ScrollTo(6300,0);
+            //}   
         }
 
 
@@ -214,7 +229,16 @@ namespace DamGame
         public void MoveElements()
         {
             player.Move();
-            shoot.Move();
+            shoot.Move(); // Old method for move 1 single shoot at a time.
+
+            //for (int i = 0; i < shoot.Count; i++)
+            //{
+            //    if (shoot[i].IsVisible())
+            //    {
+            //        shoot[i].Move();
+            //    }
+            //}
+
             for (int i = 0; i < numEnemies; i++)
                 enemies[i].Move();
             for (int i = 0; i < numBats; i++)
@@ -233,13 +257,38 @@ namespace DamGame
         // Check collisions and apply game logic
         public void CheckCollisions()
         {
-            if (player.GetX() + player.GetWidth() >= currentLevel.GetMaxX() &&
-                    level < 3)
-            {
-                level++;
-                player.SetX(currentLevel.GetMinX() + 5);
-                currentLevel.SetLevel(level);
-            }
+            // Check if there's a ladder collision 
+            //player.CheckSituation(currentLevel.IsValidMove(player.GetX(), player.GetY())[0],
+            //                    currentLevel.IsValidMove(player.GetX(), player.GetY())[1],
+            //                    currentLevel.IsValidMove(player.GetX(), player.GetY())[2]);
+
+            //if (player.GetX() + player.GetWidth() >= currentLevel.GetMaxX() &&
+            //        level < 3)
+            //{
+            //    level++;
+            //    player.SetX(currentLevel.GetMinX() + 5);
+            //    currentLevel.SetLevel(level);
+            //}
+
+            //for (int i = 0; i < enemies.Length; i++)
+            //{
+            //    for (int j = 0; j < shoot.Count; j++)
+            //    {
+            //        if (shoot[j].CollisionsWith(enemies[i]))
+            //        {
+            //            enemies[i].Hide();
+            //        }
+
+            //        if (player.CollisionsWith(shoot[j]))
+            //        {
+            //            shoot[j].Hide();
+            //            score += 100;
+            //        }
+
+            //        if (!shoot[j].IsVisible())
+            //            shoot.Remove(shoot[j]);
+            //    }
+            //}
             for (int i = 0; i < numEnemies; i++)
             {
                 if (enemies[i].CollisionsWith(player))
@@ -250,6 +299,8 @@ namespace DamGame
                     if (lifeCount < 0)
                         finished = true;
                 }
+
+                 // Old method to detect collision with enemies
                 if (shoot.CollisionsWith(enemies[i]))
                 {
                     enemies[i].Hide();
@@ -271,7 +322,6 @@ namespace DamGame
                 if (shoot.CollisionsWith(demons[i]))
                 {
                     shoot.Hide();
-                    score += 700;
                     if(demonsLives == 0)
                         demons[i].Hide();
                 }
